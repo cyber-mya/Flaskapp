@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devops_db
+      - DB_USER=devops_user
+      - DB_PASS=devops_pass
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: devops_db
+      POSTGRES_USER: devops_user
+      POSTGRES_PASSWORD: devops_pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
